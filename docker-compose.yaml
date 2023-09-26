@@ -1,0 +1,95 @@
+version: '3.8'
+services:
+  spark-master:
+    container_name: spark-master
+    deploy:
+        resources:
+            limits:
+              cpus: '1'
+              memory: "2g"
+    build: ./spark
+    ports:
+      - "4040:4040"
+      - "7077:7077"
+      - "8080:8080"
+      - "18080:18080"
+    networks:
+      - vbo
+    command: sh spark-master.sh
+
+  spark-worker:
+    deploy:
+        resources:
+            limits:
+              cpus: '1'
+              memory: "2g"
+    build: ./spark
+    depends_on:
+      - spark-master
+    ports:
+      - "8081-8089:8081"
+    networks:
+      - vbo
+    command: sh spark-worker.sh
+
+  spark-client:
+    container_name: spark-client
+    deploy:
+        resources:
+            limits:
+              cpus: '1'
+              memory: "2g"
+    build: ./spark_client
+    ports:
+      - "8888:8888"
+      - "4041:4040"
+    networks:
+      - vbo
+    volumes:
+      - ./spark_client/examples:/opt/examples
+    command: sleep infinity
+
+# S3 compatible object storage: MinIO
+  minio:
+    container_name: minio
+    deploy:
+        resources:
+            limits:
+              cpus: '1'
+              memory: "2g"
+    image: "minio/minio:RELEASE.2023-05-04T21-44-30Z"
+    volumes:
+      - minio:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - vbo
+    environment:
+      MINIO_ACCESS_KEY: "dataops"
+      MINIO_SECRET_KEY: "Ankara06"
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  kafka:
+    container_name: kafka
+    image: erkansirin78/kafka:3.2.0
+    build:
+      context: ./kafka
+    ports:
+      - "9092:9092"
+      - "9091:9091"
+    networks:
+      - vbo
+    volumes:
+      - ./kafka/config/server.properties:/kafka/config/server.properties
+volumes:
+   minio:
+      driver: local
+
+networks:
+  vbo:
