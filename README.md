@@ -2,20 +2,20 @@
 
 This GitHub repository serves as a resource center for a mini bootcamp focused on Data Engineering topics. Here's a summary of the curriculum:
 
-### Week 1: Fundamentals and Preparation
+## Week 1: Fundamentals and Preparation
 
 - Introduction to Data Engineering.
 - Basics of Linux and Docker.
 
-### Week 2: Big Data Processing and Spark
+## Week 2: Big Data Processing and Spark
 
 - Fundamentals of big data processing with Apache Spark and data transformation operations.
 
-### Week 3: Data Stream Management and Kafka
+## Week 3: Data Stream Management and Kafka
 
 - Basics of data stream management using Apache Kafka.
 
-### Week 4: Data Analysis and Databases
+## Week 4: Data Analysis and Databases
 
 - Data analysis using Python.
 - Fundamentals of PostgreSQL databases.
@@ -34,9 +34,9 @@ To set up the Docker environment for use during the training, follow these steps
 
 3. Use the following command to navigate to the directory corresponding to the relevant training week. For example, to navigate to the "00_playground" directory:
 
-```bash
-cd 00_playground
-```
+    ```bash
+    cd 00_playground
+    ```
 
 4. Use the following commands to initiate the Docker infrastructure and create containers:
 
