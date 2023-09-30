@@ -1,0 +1,77 @@
+version: '3.8'
+services:
+  spark:
+    container_name: spark
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: "2g"
+    build: ./spark
+    ports:
+      - "8888:8888"
+      - "4041:4040"
+    networks:
+      - vbo
+    volumes:
+      - ./spark/examples:/opt/examples
+    command: sleep infinity
+  # S3 compatible object storage: MinIO
+  minio:
+    container_name: minio
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: "2g"
+    image: "minio/minio:RELEASE.2023-05-04T21-44-30Z"
+    volumes:
+      - minio:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - vbo
+    environment:
+      MINIO_ACCESS_KEY: "dataops"
+      MINIO_SECRET_KEY: "Ankara06"
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://127.0.0.1:9000/minio/health/live"
+        ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  kafka:
+    container_name: kafka
+    image: erkansirin78/kafka:3.2.0
+    build:
+      context: ./kafka
+    ports:
+      - "9092:9092"
+      - "9091:9091"
+    networks:
+      - vbo
+    volumes:
+      - ./kafka/config/server.properties:/kafka/config/server.properties
+  postgresql:
+    container_name: postgresql
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Ankara06
+    networks:
+      - vbo
+volumes:
+  minio:
+    driver: local
+
+networks:
+  vbo:

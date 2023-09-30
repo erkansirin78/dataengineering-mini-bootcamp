@@ -1,6 +1,6 @@
 FROM python:3.8-slim
 
-# Install OpenJDK 11
+# Install OpenJDK 17
 RUN mkdir -p /usr/share/man/man1mkdir -p /usr/share/man/man1 && \
     apt-get update && \
     apt-get install -y openjdk-17-jdk && \
