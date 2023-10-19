@@ -5,10 +5,12 @@ This GitHub repository serves as a resource center for a mini bootcamp focused o
 ## Week 1: Fundamentals and Preparation
 
 - Introduction to Data Engineering.
-- Basics of Linux and Docker.
+- VM link: https://drive.google.com/drive/folders/1XO8UYcnZlahpmT7RgQ_vhR67dB7lr3Fu?usp=share_link
+- Basics of Linux 
 
 ## Week 2: Big Data Processing and Spark
 
+- Docker
 - Fundamentals of big data processing with Apache Spark and data transformation operations.
 
 ## Week 3: Data Stream Management and Kafka
