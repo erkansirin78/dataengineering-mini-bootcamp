@@ -11,10 +11,11 @@ This GitHub repository serves as a resource center for a mini bootcamp focused o
 ## Week 2: Big Data Processing and Spark
 
 - Docker
-- Fundamentals of big data processing with Apache Spark and data transformation operations.
+- Apache Spark Local Setup and Basic Dataframe Operations-1 
 
 ## Week 3: Data Stream Management and Kafka
 
+- Apache Spark Docker Setup and Dataframe Operations-2
 - Basics of data stream management using Apache Kafka.
 
 ## Week 4: Data Analysis and Databases
