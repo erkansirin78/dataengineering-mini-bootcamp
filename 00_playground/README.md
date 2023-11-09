@@ -1,11 +1,6 @@
-## Copy files to VM
-
-## Fix file
 ```commandline
+git clone https://github.com/erkansirin78/dataengineering-mini-bootcamp
+cd dataengineering-mini-bootcamp/00_playground
 find . -type f -exec sed -i 's/\r$//' {} \;
-```
-
-## Run docker-compose
-```commandline
-docker-compose up --build -d
+docker-compose up --build -d 
 ```
